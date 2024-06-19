@@ -3,5 +3,5 @@ resolver = "2"
 members = [
 	"heap", "heap-test",
 	"process",
-	"process-test",
+	"process-test", "types",
 ]

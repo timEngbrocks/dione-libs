@@ -16,3 +16,7 @@ Process creation and inter-process communication for Dione's threads.
 ## process-test
 
 Simple test for the process package.
+
+## types
+
+Definition of Java data types.
