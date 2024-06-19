@@ -160,6 +160,6 @@ impl Write for IPCClientWriter {
 	}
 
 	fn flush(&mut self) -> std::io::Result<()> {
-		todo!()
+		Ok(())
 	}
 }

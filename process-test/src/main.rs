@@ -36,6 +36,10 @@ pub fn root_process() {
         Ok(_) => (),
         Err(e) => panic!("IPCClient buf_writer failed. Got: '{e}'"),
     };
+    match buf_writer.flush() {
+        Ok(_) => (),
+        Err(e) => panic!("IPCClient buf_writer failed to flush. Got: '{e}'"),
+    };
 
     let buf_reader = ipc_client.buf_reader();
     let mut buffer = String::new();
@@ -43,7 +47,7 @@ pub fn root_process() {
         Ok(_) => (),
         Err(e) => panic!("IPCClient buf_reader failed. Got: '{e}'")
     };
-    p_println(&format!("Received message from child: '{}'", buffer));
+    p_println(&format!("Received message from child: '{}'", buffer.strip_suffix("\n").unwrap()));
 
     ipc_client.close();
     
@@ -64,12 +68,16 @@ pub fn child_process() {
         Ok(_) => (),
         Err(e) => panic!("IPCClient buf_reader failed. Got: '{e}'")
     };
-    p_println(&format!("Received message from parent: '{}'", buffer));
+    p_println(&format!("Received message from parent: '{}'", buffer.strip_suffix("\n").unwrap()));
 
     let buf_writer = ipc_client.buf_writer();
     match buf_writer.write_all(b"Thank you from child!\n") {
         Ok(_) => (),
         Err(e) => panic!("IPCClient buf_writer failed. Got: '{e}'"),
+    };
+    match buf_writer.flush() {
+        Ok(_) => (),
+        Err(e) => panic!("IPCClient buf_writer failed to flush. Got: '{e}'"),
     };
 
     ipc_client.close();
