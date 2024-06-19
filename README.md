@@ -20,3 +20,7 @@ Simple test for the process package.
 ## types
 
 Definition of Java data types.
+
+## class_file_parser
+
+Parser for Java's `.class` files.
