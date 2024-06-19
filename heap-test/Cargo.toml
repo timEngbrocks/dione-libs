@@ -1,0 +1,8 @@
+[package]
+name = "heap-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+heap = { path = "../heap" }
+rand = "0.8.5"
